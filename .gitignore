@@ -1,3 +1,14 @@
 *.elc
-fish/fishd.*
 flycheck*
+projectile*
+
+.dap-breakpoints
+.lsp-session-v1
+.cache/
+auto-save-list/
+nov-places
+recentf
+tramp
+transient/
+url/
+workspace/

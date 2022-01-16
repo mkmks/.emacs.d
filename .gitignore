@@ -6,6 +6,7 @@ projectile*
 .lsp-session-v1
 .cache/
 auto-save-list/
+eln-cache/
 nov-places
 recentf
 tramp

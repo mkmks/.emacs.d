@@ -8,6 +8,7 @@
 (require 'devel-rust)
 (require 'devel-scala)
 (require 'mail)
+(require 'write)
 
 (setq custom-file "~/.emacs.d/config/custom.el")
 (load custom-file)

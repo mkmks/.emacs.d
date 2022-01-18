@@ -8,13 +8,38 @@
     (exec-path-from-shell-initialize))
   :custom
   (use-package-always-defer t)
+  (custom-file "~/.emacs.d/config/custom.el")
+  (default-input-method "russian-computer")
+
+  (inhibit-startup-screen t)
+  (blink-cursor-mode nil)
+  (menu-bar-mode nil)
+  (tool-bar-mode nil)
+  (pixel-scroll-precision-mode t)
+  
+  (auto-save-default nil)
   (auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (backup-directory-alist `((".*" . ,temporary-file-directory)))
-  (global-auto-revert-mode t)
+  (make-backup-files nil)
+
+  (column-number-mode t)
   (global-linum-mode t)
   (global-visual-line-mode t)
-  (pixel-scroll-precision-mode t)
+  (indicate-empty-lines t)
+  (size-indication-mode t)
+  (visual-line-fringe-indicators '(left-curly-arrow nil))
+  
+  (electric-pair-mode t)
+  (show-paren-mode t)
+  (show-paren-style 'expression)
+
+  (fill-column 100)
+  (global-auto-revert-mode t)
+  (recentf-mode t)
+  (which-function-mode nil)
   (which-key-mode t)
+  :custom-face
+  (default ((t (:inherit nil :extend nil :stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-bold :height 88 :width normal :foundry "ADBO" :family "Source Code Pro"))))
   :diminish visual-line-mode hi-lock-mode auto-revert-mode which-key-mode)
 
 (use-package shackle

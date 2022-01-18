@@ -83,7 +83,9 @@
   :custom
   (lsp-file-watch-threshold 10000)
   (lsp-headerline-breadcrumb-segments '(symbols))
-  (lsp-prefer-flymake nil))
+  (lsp-prefer-flymake nil)
+  :custom-face
+  (lsp-ui-sideline-symbol ((t (:background "blue" :foreground "grey" :box (:line-width -1 :color "grey") :height 0.99)))))
 
 (use-package lsp-ui
   :custom
@@ -106,6 +108,10 @@
 
 (load-file (let ((coding-system-for-read 'utf-8))
 	     (shell-command-to-string "agda-mode locate")))
+
+(use-package agda
+  :custom
+  (agda2-highlight-level 'interactive))
 
 (provide 'devel)
 ;;; devel.el ends here

@@ -23,8 +23,29 @@
     (mu4e-view mu4e~view-msg)))
 
 (use-package mu4e
-  :commands
-  (mu4e)
+  :commands (mu4e)
+  :init (unbind-key "C-x m" global-map)
+  :bind (("C-x m" . mu4e))
+  :config
+  (setq mu4e-contexts
+	`(,(make-mu4e-context
+	    :name "fastmail"
+	    :match-func (lambda (msg) (when msg (string-match-p "^/fastmail" (mu4e-message-field msg :maildir))))
+	    :vars '((user-mail-address . "nf@mkmks.org")
+		    (user-full-name . "Nikita Frolov")
+		    (mu4e-drafts-folder . "/fastmail/Drafts")
+		    (mu4e-refile-folder . "/fastmail/Archive")
+		    (mu4e-sent-folder   . "/fastmail/Sent")
+		    (mu4e-trash-folder  . "/fastmail/Trash")))
+	  ,(make-mu4e-context
+	    :name "concordium"
+	    :match-func (lambda (msg) (when msg (string-match-p "^/concordium" (mu4e-message-field msg :maildir))))
+	    :vars '((user-mail-address . "nf@concordium.com")
+		    (user-full-name . "Nikita Frolov")
+		    (mu4e-drafts-folder . "/concordium/[Gmail]/Drafts")
+		    (mu4e-refile-folder . "/concordium/[Gmail]/All Mail")
+		    (mu4e-sent-folder   . "/concordium/[Gmail]/Sent Mail")
+		    (mu4e-trash-folder  . "/concordium/[Gmail]/Bin")))))
   :init
   (defun mu4e~draft-open-file (path)
     "Open the the draft file at PATH."
@@ -34,29 +55,36 @@
     (mime-to-mml))
   :bind (:map mu4e-view-mode-map ("'" . mu4e-goodies-detach-view-to-window))
   :config
-  (mu4e-maildirs-extension)
+;  (mu4e-maildirs-extension)
   :custom
   (mu4e-attachment-dir "/home/viv/Downloads")
-  (mu4e-bookmarks '(("flag:unread AND NOT flag:list AND NOT flag:trashed AND NOT maildir:/Archive AND NOT maildir:/Spam" "Unread new messages" 117)
-		    ("flag:unread AND flag:list AND NOT flag:trashed AND NOT maildir:/Archive AND NOT maildir:/Spam" "Unread mailing lists" 108)
-		    ("date:today..now AND NOT maildir:/Spam" "Today's messages" 116)
-		    ("date:7d..now AND NOT maildir:/Spam" "Last 7 days" 119)
-		    ("mime:image/* AND NOT maildir:/Spam" "Messages with images" 112)
-		    ("flag:attach AND NOT maildir:/Spam" "Messages with attachments" 97)))
+  (mu4e-bookmarks '(( :name "Unread new messages"
+		      :query "flag:unread AND NOT flag:list AND NOT flag:trashed"
+		      :key ?i)
+		    ( :name "Today's messages"
+		      :query "date:today..now"
+		      :key ?t)
+		    ( :name "Last 7 days"
+		      :query "date:7d..now AND NOT flag:list"
+		      :key ?w)
+		    ( :name "Unread mailing lists"
+		      :query "flag:unread AND flag:list AND NOT flag:trashed"
+		      :key ?l)		    
+		    ( :name "Messages with images"
+		      :query "mime:image/* AND NOT flag:list"
+		      :key ?p)
+		    ( :name "Messages with attachments"
+		      :query "flag:attach AND NOT flag:list"
+		      :key ?a)))
   (mu4e-change-filenames-when-moving t)
   (mu4e-compose-complete-only-personal t)
   (mu4e-compose-dont-reply-to-self t)
   (mu4e-compose-in-new-frame t)
   (mu4e-compose-signature nil)
   (mu4e-confirm-quit nil)
-  (mu4e-drafts-folder "/Drafts")
   (mu4e-get-mail-command "mbsync -a")
-  (mu4e-maildir "/home/viv/Mail/fastmail")
-  (mu4e-maildirs-extension-use-bookmarks t)
-  (mu4e-refile-folder "/Archive")
-  (mu4e-sent-folder "/Sent")
-  (mu4e-trash-folder "/Trash")
-  (mu4e-user-mail-address-list '("nf@mkmks.org"))
+;  (mu4e-maildirs-extension-use-bookmarks t)
+  (mu4e-user-mail-address-list '("nf@mkmks.org" "nf@concordium.com"))
   (mu4e-view-show-images t))
 
 (provide 'mail)

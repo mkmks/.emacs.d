@@ -60,6 +60,18 @@
   :custom
   (setq smudge-transport 'connect))
 
+(use-package slack
+  :commands (slack-start)
+  :config
+  (slack-register-team
+   :name "concordium"
+   :token (auth-source-pick-first-password
+	   :host "concordium.slack.com"
+	   :user "nf@mkmks.org")
+   :cookie (auth-source-pick-first-password
+	    :host "concordium.slack.com"
+	    :user "nf@mkmks.org^cookie")))
+
 (use-package telega
   :custom
   (setq telega-use-images t))

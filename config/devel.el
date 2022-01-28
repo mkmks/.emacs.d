@@ -48,6 +48,9 @@
   (direnv-mode t))
 
 (use-package vterm
+  :init
+  (unbind-key [next] pixel-scroll-precision-mode-map)
+  (unbind-key [prior] pixel-scroll-precision-mode-map)
   :custom
   (vterm-buffer-name-string "%s")
   (vterm-shell "fish"))

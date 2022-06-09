@@ -42,16 +42,22 @@
   (default ((t (:inherit nil :extend nil :stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-bold :height 88 :width normal :foundry "ADBO" :family "Source Code Pro"))))
   :diminish visual-line-mode hi-lock-mode auto-revert-mode which-key-mode)
 
-(use-package shackle
-  :custom
-  (shackle-default-rule '(:frame t)))
-;  (shackle-display-buffer-frame-function 'sway-shackle-display-buffer-frame))
+;; (use-package shackle
+;;   :custom
+;;   (shackle-default-rule '(:frame t)))
+;; ;  (shackle-display-buffer-frame-function 'sway-shackle-display-buffer-frame))
 
-(use-package sway
-  :config
-  (sway-socket-tracker-mode)
-  (sway-undertaker-mode)
-  (sway-x-focus-through-sway-mode))
+;; (use-package sway
+;;   :custom
+;;   (pop-up-frames 'graphic-only)
+;;   :config
+;;   (sway-socket-tracker-mode)
+;;   (sway-undertaker-mode)
+;;   (sway-x-focus-through-sway-mode))
+
+(use-package frames-only-mode
+  :custom
+  (frames-only-mode t))
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode))
@@ -75,6 +81,15 @@
 (use-package telega
   :custom
   (setq telega-use-images t))
+
+(use-package hledger-mode
+  :mode ("\\.journal\\'" "\\.hledger\\'")
+  :commands hledger-enable-reporting
+  :init
+  (add-hook 'hledger-mode-hook
+            (lambda ()
+              (make-local-variable 'company-backends)
+              (add-to-list 'company-backends 'hledger-company))))
 
 (provide 'basic)
 ;;; basic.el ends here

@@ -13,10 +13,7 @@
 
 (use-package lsp-haskell
   :after lsp-mode
-  :hook (haskell-mode . lsp)
-  :custom
-  (lsp-haskell-process-path-hie "haskell-language-server-wrapper")
-  (lsp-haskell-server-path "/home/viv/.cabal/bin/haskell-language-server"))
+  :hook (haskell-mode . lsp))
 
 (provide 'devel-haskell)
 ;;; devel-haskell.el ends here

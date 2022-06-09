@@ -25,7 +25,10 @@
 (use-package mu4e
   :commands (mu4e)
   :init (unbind-key "C-x m" global-map)
-  :bind (("C-x m" . mu4e))
+  :bind
+  (("C-x m" . mu4e))
+  (:map mu4e-main-mode-map ("u" . mu4e-update-index))
+  (:map mu4e-view-mode-map ("'" . mu4e-goodies-detach-view-to-window))
   :config
   (setq mu4e-contexts
 	`(,(make-mu4e-context
@@ -46,6 +49,7 @@
 		    (mu4e-refile-folder . "/concordium/[Gmail]/All Mail")
 		    (mu4e-sent-folder   . "/concordium/[Gmail]/Sent Mail")
 		    (mu4e-trash-folder  . "/concordium/[Gmail]/Bin")))))
+;  (mu4e-maildirs-extension)
   :init
   (defun mu4e~draft-open-file (path)
     "Open the the draft file at PATH."
@@ -53,9 +57,6 @@
 	(find-file-other-frame path)
       (find-file path))
     (mime-to-mml))
-  :bind (:map mu4e-view-mode-map ("'" . mu4e-goodies-detach-view-to-window))
-  :config
-;  (mu4e-maildirs-extension)
   :custom
   (mu4e-attachment-dir "/home/viv/Downloads")
   (mu4e-bookmarks '(( :name "Unread new messages"

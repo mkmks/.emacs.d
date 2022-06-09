@@ -71,6 +71,7 @@
   (unbind-key "C-x l" global-map)
   (setq lsp-keymap-prefix "C-x l")
   :hook
+  (elm-mode . lsp)
   (java-mode . lsp)
   (python-mode . lsp)
   (tex-mode . lsp)

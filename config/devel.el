@@ -47,6 +47,8 @@
   (direnv-always-show-summary nil)
   (direnv-mode t))
 
+(use-package nix-buffer)
+
 (use-package vterm
   :init
   (unbind-key [next] pixel-scroll-precision-mode-map)
@@ -71,8 +73,12 @@
   (unbind-key "C-x l" global-map)
   (setq lsp-keymap-prefix "C-x l")
   :hook
+  (c-mode . lsp)
+  (c++-mode . lsp)
+  (cmake-mode . lsp)
   (elm-mode . lsp)
   (java-mode . lsp)
+  (mlir-mode . lsp)
   (python-mode . lsp)
   (tex-mode . lsp)
   (latex-mode . lsp)
@@ -116,6 +122,16 @@
 (use-package agda
   :custom
   (agda2-highlight-level 'interactive))
+
+(add-to-list 'load-path "~/repos/zama/concrete-open-source/third_party/llvm-project/llvm/utils/emacs/")
+(add-to-list 'load-path "~/repos/zama/concrete-open-source/third_party/llvm-project/mlir/utils/emacs/")
+
+(use-package llvm-mode)
+(use-package mlir-mode
+  :mode "\\.mlir\\'")
+(use-package mlir-lsp-client)
+(use-package tablegen-mode
+  :mode "\\.td\\'")
 
 (provide 'devel)
 ;;; devel.el ends here

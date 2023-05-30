@@ -11,6 +11,9 @@
   (custom-file "~/.emacs.d/config/custom.el")
   (default-input-method "russian-computer")
 
+  (gc-cons-threshold 100000000)
+  (read-process-output-max (* 1024 1024))
+
   (inhibit-startup-screen t)
   (blink-cursor-mode nil)
   (menu-bar-mode nil)

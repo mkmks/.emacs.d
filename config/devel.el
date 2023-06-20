@@ -1,9 +1,21 @@
 (use-package company
+  :custom
+  (global-company-mode t)
   :diminish company-mode)
+
+(use-package treesit)
 
 (use-package flycheck
   :custom
   (global-flycheck-mode t))
+
+(use-package flycheck-haskell
+  :custom
+  (flycheck-haskell-stack-ghc-executable "stack --no-nix --system-ghc"))
+
+(use-package flycheck-rust
+  :hook
+  (flycheck-mode . flycheck-rust-setup))
 
 (use-package helm
   :diminish helm-mode
@@ -42,11 +54,11 @@
 (use-package direnv
   :hook
   (flycheck-before-syntax-check . direnv-update-environment)
-  (lsp-before-open-hook . direnv-update-environment)
+  :config
+  (direnv-mode)
   :custom
-  (direnv-always-show-summary nil)
-  (direnv-mode t))
-
+  (direnv-always-show-summary nil))
+  
 (use-package nix-buffer)
 
 (use-package vterm
@@ -68,50 +80,25 @@
   (tramp-default-method "ssh")
   (tramp-syntax 'default))
 
-(use-package lsp-mode
-  :init
-  (unbind-key "C-x l" global-map)
-  (setq lsp-keymap-prefix "C-x l")
+(use-package eglot
   :hook
-  (c-mode . lsp)
-  (c++-mode . lsp)
-  (cmake-mode . lsp)
-  (elm-mode . lsp)
-  (java-mode . lsp)
-  (mlir-mode . lsp)
-  (python-mode . lsp)
-  (tex-mode . lsp)
-  (latex-mode . lsp)
-  (sh-mode . lsp)
-  (typescript-mode . lsp)
-  (lsp-mode . lsp-lens-mode)
-  (lsp-mode . lsp-enable-which-key-integration)
-  :commands
-  (lsp lsp-deferred)
-  :config
-  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
-  :custom
-  (lsp-file-watch-threshold 10000)
-  (lsp-headerline-breadcrumb-segments '(symbols))
-  (lsp-prefer-flymake nil)
-  :custom-face
-  (lsp-ui-sideline-symbol ((t (:background "blue" :foreground "grey" :box (:line-width -1 :color "grey") :height 0.99)))))
+  (c-mode . eglot-ensure)
+  (c++-mode . eglot-ensure)
+  (cmake-mode . eglot-ensure)
+  (mlir-mode . eglot-ensure)
+  (sh-mode . eglot-ensure)
+  
+  (python-mode . eglot-ensure)
+  (typescript-mode . eglot-ensure)
+  (elm-mode . eglot-ensure)
 
-(use-package lsp-ui
-  :custom
-  (lsp-ui-doc-alignment 'window)
-  (lsp-ui-doc-show-with-cursor t)
-  (lsp-ui-sideline-show-hover nil)
-  (lsp-ui-sideline-show-symbol nil))
+  (haskell-mode . eglot-ensure)
+  (java-mode . eglot-ensure)
+  (scala-mode . eglot-ensure)
+  (rustic-mode . eglot-ensure)
 
-(use-package lsp-treemacs
-  :custom
-  (lsp-treemacs-sync-mode t))
-
-(use-package dap-mode
-  :hook
-  (lsp-mode . dap-mode)
-  (lsp-mode . dap-ui-mode))
+  (tex-mode . eglot-ensure)
+  (latex-mode . eglot-ensure))
 
 (use-package nix-mode
   :mode "\\.nix\\'")
@@ -129,9 +116,42 @@
 (use-package llvm-mode)
 (use-package mlir-mode
   :mode "\\.mlir\\'")
-(use-package mlir-lsp-client)
 (use-package tablegen-mode
   :mode "\\.td\\'")
+
+
+(use-package haskell-mode
+  :custom
+  (haskell-font-lock-symbols nil)
+  (haskell-indent-thenelse 1)
+  (haskell-literate-default 'bird)
+  (haskell-stylish-on-save t)
+  :hook
+  (haskell-mode . haskell-indentation-mode))
+
+(use-package cargo
+  :custom
+  (cargo-mode-command-build "build --release --features static")
+  (cargo-path-to-bin "cargo"))
+
+(use-package rustic
+  :custom
+  (rustic-lsp-client 'eglot))
+
+(use-package scala-mode
+  :mode "\\.s\\(cala\\|bt\\)$")
+
+(use-package sbt-mode
+  :commands sbt-start sbt-command
+  :config
+  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+  ;; allows using SPACE when in the minibuffer
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map)
+   ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+   (setq sbt:program-options '("-Dsbt.supershell=false")))
 
 (provide 'devel)
 ;;; devel.el ends here

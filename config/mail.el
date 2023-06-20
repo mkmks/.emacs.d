@@ -6,7 +6,7 @@
 	message-citation-line-format "%A %d %B %Y, à %H:%M, %N a écrit:
 "
 	message-citation-line-function 'message-insert-formatted-citation-line
-	message-directory "~/.emacs.d/message/"
+	message-directory "~/.config/emacs/message/"
 	message-kill-buffer-on-exit t
 	message-send-mail-function 'message-send-mail-with-sendmail))
 

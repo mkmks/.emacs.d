@@ -1,6 +1,6 @@
-(use-package vs-light-theme
+(use-package vs-dark-theme
   :config
-  (load-theme 'vs-light t))
+  (load-theme 'vs-dark t))
 
 (use-package emacs
   :init
@@ -8,7 +8,7 @@
     (exec-path-from-shell-initialize))
   :custom
   (use-package-always-defer t)
-  (custom-file "~/.emacs.d/config/custom.el")
+  (custom-file "~/.config/emacs/config/custom.el")
   (default-input-method "russian-computer")
 
   (gc-cons-threshold 100000000)
@@ -18,6 +18,7 @@
   (blink-cursor-mode nil)
   (menu-bar-mode nil)
   (tool-bar-mode nil)
+  (pixel-scroll-mode t)
   (pixel-scroll-precision-mode t)
   
   (auto-save-default nil)
@@ -42,7 +43,7 @@
   (which-function-mode nil)
   (which-key-mode t)
   :custom-face
-  (default ((t (:inherit nil :extend nil :stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-bold :height 88 :width normal :foundry "ADBO" :family "Source Code Pro"))))
+  (default ((t (:inherit nil :extend nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-bold :height 88 :width normal :foundry "ADBO" :family "Source Code Pro"))))
   :diminish visual-line-mode hi-lock-mode auto-revert-mode which-key-mode)
 
 ;; (use-package shackle

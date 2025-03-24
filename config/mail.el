@@ -39,16 +39,7 @@
 		    (mu4e-drafts-folder . "/fastmail/Drafts")
 		    (mu4e-refile-folder . "/fastmail/Archive")
 		    (mu4e-sent-folder   . "/fastmail/Sent")
-		    (mu4e-trash-folder  . "/fastmail/Trash")))
-	  ,(make-mu4e-context
-	    :name "concordium"
-	    :match-func (lambda (msg) (when msg (string-match-p "^/concordium" (mu4e-message-field msg :maildir))))
-	    :vars '((user-mail-address . "nf@concordium.com")
-		    (user-full-name . "Nikita Frolov")
-		    (mu4e-drafts-folder . "/concordium/[Gmail]/Drafts")
-		    (mu4e-refile-folder . "/concordium/[Gmail]/All Mail")
-		    (mu4e-sent-folder   . "/concordium/[Gmail]/Sent Mail")
-		    (mu4e-trash-folder  . "/concordium/[Gmail]/Bin")))))
+		    (mu4e-trash-folder  . "/fastmail/Trash")))))
 ;  (mu4e-maildirs-extension)
   :init
   (defun mu4e~draft-open-file (path)
@@ -85,7 +76,7 @@
   (mu4e-confirm-quit nil)
   (mu4e-get-mail-command "mbsync -a")
 ;  (mu4e-maildirs-extension-use-bookmarks t)
-  (mu4e-user-mail-address-list '("nf@mkmks.org" "nf@concordium.com"))
+  (mu4e-user-mail-address-list '("nf@mkmks.org"))
   (mu4e-view-show-images t))
 
 (provide 'mail)

@@ -4,9 +4,6 @@
 
 (require 'basic)
 (require 'devel)
-(require 'devel-haskell)
-(require 'devel-rust)
-(require 'devel-scala)
 (require 'mail)
 (require 'write)
 

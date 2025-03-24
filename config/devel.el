@@ -5,6 +5,10 @@
 
 (use-package treesit)
 
+(use-package treesit-auto
+  :config
+  (global-treesit-auto-mode))
+
 (use-package flycheck
   :custom
   (global-flycheck-mode t))
@@ -17,17 +21,21 @@
   :hook
   (flycheck-mode . flycheck-rust-setup))
 
-(use-package helm
-  :diminish helm-mode
-  :bind (("C-x b" . helm-buffers-list)
-	 ("C-x C-f" . helm-find-files)
-         ("C-x C-r" . helm-recentf)
-	 ("M-x" . helm-M-x))
-  :config
-  (helm-projectile-on)
+;; (use-package helm
+;;   :diminish helm-mode
+;;   :bind (("C-x b" . helm-buffers-list)
+;; 	 ("C-x C-f" . helm-find-files)
+;;          ("C-x C-r" . helm-recentf)
+;; 	 ("M-x" . helm-M-x))
+;;   :config
+;;   (helm-projectile-on)
+;;   :custom
+;;   (helm-mode t)
+;;   (helm-boring-buffer-regexp-list '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*GNU Emacs" "\\*Completions" "\\*Quail Completions" "\\*fsm-debug" "\\*Help" "\\*Apropos"))
+
+(use-package counsel-projectile
   :custom
-  (helm-mode t)
-  (helm-boring-buffer-regexp-list '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*GNU Emacs" "\\*Completions" "\\*Quail Completions" "\\*fsm-debug" "\\*Help" "\\*Apropos")))
+  (counsel-projectile-mode t))
 
 (use-package magit
   :bind (("C-x g" . magit-status)
@@ -37,16 +45,20 @@
   (magit-diff-refine-hunk 'all))
 
 (use-package projectile
-  :bind (("C-x p" . projectile-commander))
+  :bind-keymap
+  ("C-x p" . projectile-command-map)
   :config
-  (setq frame-title-format '((:eval (if (projectile-project-p)
-					(concat "[" (projectile-project-name) "]/"
-						(file-relative-name buffer-file-name
-								    (projectile-project-root)))
-				      (buffer-name (current-buffer))))
-			     (vc-mode vc-mode) " (%m)"))
+  (setq frame-title-format
+	'((:eval (if buffer-file-name
+		     (if (and buffer-file-name (projectile-project-p))
+			 (concat "[" (projectile-project-name) "]/"
+				 (file-relative-name buffer-file-name
+						     (projectile-project-root)))
+		       "%f")
+		   "%b"))
+	  (vc-mode vc-mode) " (%m)"))
   :custom
-  (projectile-completion-system 'helm)
+  (projectile-completion-system 'ivy)
   (projectile-globally-ignored-modes '("erc-mode" "help-mode" "completion-list-mode" "Buffer-menu-mode" "gnus-.*-mode" "occur-mode" "rcirc-mode"))
   (projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
   (projectile-mode t))
@@ -96,6 +108,7 @@
   (java-mode . eglot-ensure)
   (scala-mode . eglot-ensure)
   (rustic-mode . eglot-ensure)
+  (zig-mode . eglot-ensure)
 
   (tex-mode . eglot-ensure)
   (latex-mode . eglot-ensure))
@@ -134,7 +147,13 @@
   (cargo-mode-command-build "build --release --features static")
   (cargo-path-to-bin "cargo"))
 
+(use-package rust-mode
+  :custom
+  (rust-mode-treesitter-derive t))
+
 (use-package rustic
+  :after
+  (rust-mode)
   :custom
   (rustic-lsp-client 'eglot))
 

@@ -1,11 +1,15 @@
-(use-package vs-dark-theme
+(use-package catppuccin-theme
   :config
-  (load-theme 'vs-dark t))
+  (load-theme 'catppuccin :no-confirm))
 
 (use-package emacs
   :init
   (when (daemonp)
     (exec-path-from-shell-initialize))
+  :hook
+  (conf-mode . display-line-numbers-mode)
+  (prog-mode . display-line-numbers-mode)
+  (text-mode . display-line-numbers-mode)
   :custom
   (use-package-always-defer t)
   (custom-file "~/.config/emacs/config/custom.el")
@@ -17,6 +21,7 @@
   (inhibit-startup-screen t)
   (blink-cursor-mode nil)
   (menu-bar-mode nil)
+  (mode-line-format nil)
   (tool-bar-mode nil)
   (pixel-scroll-mode t)
   (pixel-scroll-precision-mode t)
@@ -27,7 +32,7 @@
   (make-backup-files nil)
 
   (column-number-mode t)
-  (global-linum-mode t)
+;  (global-display-line-numbers-mode t)
   (global-visual-line-mode t)
   (indicate-empty-lines t)
   (size-indication-mode t)
@@ -43,21 +48,24 @@
   (which-function-mode nil)
   (which-key-mode t)
   :custom-face
-  (default ((t (:inherit nil :extend nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-bold :height 88 :width normal :foundry "ADBO" :family "Source Code Pro"))))
-  :diminish visual-line-mode hi-lock-mode auto-revert-mode which-key-mode)
+  (default ((t (:inherit nil :extend nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-bold :height 88 :width normal :foundry "ADBO" :family "JetBrains Mono"))))
+  :diminish
+  visual-line-mode hi-lock-mode auto-revert-mode which-key-mode)
 
-;; (use-package shackle
-;;   :custom
-;;   (shackle-default-rule '(:frame t)))
-;; ;  (shackle-display-buffer-frame-function 'sway-shackle-display-buffer-frame))
+(use-package ivy
+  :diminish
+  :custom
+  (ivy-mode t))
 
-;; (use-package sway
-;;   :custom
-;;   (pop-up-frames 'graphic-only)
-;;   :config
-;;   (sway-socket-tracker-mode)
-;;   (sway-undertaker-mode)
-;;   (sway-x-focus-through-sway-mode))
+(use-package counsel
+  :diminish
+  :custom
+  (counsel-mode t))
+
+(use-package swiper
+  :bind
+  (("C-s" . swiper-isearch)
+   ("C-r" . swiper-isearch-backward)))
 
 (use-package frames-only-mode
   :custom
@@ -69,18 +77,6 @@
 (use-package smudge
   :custom
   (setq smudge-transport 'connect))
-
-(use-package slack
-  :commands (slack-start)
-  :config
-  (slack-register-team
-   :name "concordium"
-   :token (auth-source-pick-first-password
-	   :host "concordium.slack.com"
-	   :user "nf@mkmks.org")
-   :cookie (auth-source-pick-first-password
-	    :host "concordium.slack.com"
-	    :user "nf@mkmks.org^cookie")))
 
 (use-package telega
   :custom

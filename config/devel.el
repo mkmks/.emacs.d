@@ -13,6 +13,11 @@
   :custom
   (global-flycheck-mode t))
 
+(use-package flycheck-eglot
+  :after (flycheck eglot)
+  :config
+  (global-flycheck-eglot-mode t))
+
 (use-package flycheck-haskell
   :custom
   (flycheck-haskell-stack-ghc-executable "stack --no-nix --system-ghc"))
@@ -77,6 +82,9 @@
   :init
   (unbind-key [next] pixel-scroll-precision-mode-map)
   (unbind-key [prior] pixel-scroll-precision-mode-map)
+  :bind
+  (:map vterm-mode-map
+	("C-h" . vterm-send-backspace))
   :custom
   (vterm-buffer-name-string "%s")
   (vterm-shell "fish"))
@@ -112,6 +120,17 @@
 
   (tex-mode . eglot-ensure)
   (latex-mode . eglot-ensure))
+
+(use-package copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (("C-c M-f" . copilot-complete)
+         :map copilot-completion-map
+         ("C-g" . 'copilot-clear-overlay)
+         ("M-p" . 'copilot-previous-completion)
+         ("M-n" . 'copilot-next-completion)
+         ("<tab>" . 'copilot-accept-completion)
+         ("M-f" . 'copilot-accept-completion-by-word)
+         ("M-<return>" . 'copilot-accept-completion-by-line)))
 
 (use-package nix-mode
   :mode "\\.nix\\'")

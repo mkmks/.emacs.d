@@ -6,6 +6,9 @@
   :init
   (when (daemonp)
     (exec-path-from-shell-initialize))
+  (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
+  :bind
+  (("C-z" . help-command))
   :hook
   (conf-mode . display-line-numbers-mode)
   (prog-mode . display-line-numbers-mode)
@@ -32,7 +35,6 @@
   (make-backup-files nil)
 
   (column-number-mode t)
-;  (global-display-line-numbers-mode t)
   (global-visual-line-mode t)
   (indicate-empty-lines t)
   (size-indication-mode t)
@@ -73,6 +75,8 @@
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode))
+
+(use-package pdf-tools)
 
 (use-package smudge
   :custom

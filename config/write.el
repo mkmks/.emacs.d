@@ -22,5 +22,9 @@
   (org-directory "~/Documents/notes")
   (org-reverse-note-order t))
 
+(use-package ellama
+  :bind ("C-c e" . ellama)
+  :hook (org-ctrl-c-ctrl-c-final . ellama-chat-send-last-message))
+
 (provide 'write)
 ;;; write.el ends here

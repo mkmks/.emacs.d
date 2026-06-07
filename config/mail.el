@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (setq user-mail-address "nf@mkmks.org")
 
 (use-package message

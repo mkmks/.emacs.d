@@ -46,9 +46,14 @@
 [lctr]>[lalt]
 [lalt]>[ralt]
 [home]>[fn1s]
-[end]>[lmou]
+[end]>[lwin]
 
 [lshf]>[spc]
+
+[q]>[home]
+[w]>[pgdn]
+[e]>[pgup]
+[r]>[end]
 
 [a]>[left]
 [s]>[down]
@@ -65,16 +70,21 @@
 [rctr]>[lalt]
 [rwin]>[ralt]
 [pgup]>[fn1s]
-[pgdn]>[lmou]
+[pgdn]>[rwin]
 
 [bsls]>[bspc]
 [apos]>[ent]
 [rshf]>[spc]
 
-[j]>[home]
-[k]>[pgdn]
-[l]>[pgup]
-[scol]>[end]
+[u]>[home]
+[i]>[pgdn]
+[o]>[pgup]
+[p]>[end]
+
+[j]>[left]
+[k]>[down]
+[l]>[up]
+[scol]>[rght]
 
 [up]>[moul]
 [down]>[moud]

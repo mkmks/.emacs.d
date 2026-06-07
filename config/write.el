@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (use-package TeX
   :custom
   (TeX-PDF-mode t)

@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (use-package company
   :custom
   (global-company-mode t)
@@ -89,9 +90,18 @@
   (vterm-buffer-name-string "%s")
   (vterm-shell "fish"))
 
-(use-package multi-vterm
+;; (use-package multi-vterm
+;;   :init (unbind-key "C-x t" global-map)
+;;   :bind (("C-x t" . multi-vterm)))
+
+(use-package ghostel
   :init (unbind-key "C-x t" global-map)
-  :bind (("C-x t" . multi-vterm)))
+  :bind (("C-x t t" . ghostel)
+	 ("C-x t p" . ghostel-project)
+	 (:map ghostel-mode-map
+	       ("C-c b" . ghostel-project-list-buffers)
+	       ("C-c n" . ghostel-project-next)
+	       ("C-c p" . ghostel-project-previous))))
 
 (use-package tramp
   :init
@@ -120,17 +130,6 @@
 
   (tex-mode . eglot-ensure)
   (latex-mode . eglot-ensure))
-
-(use-package copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (("C-c M-f" . copilot-complete)
-         :map copilot-completion-map
-         ("C-g" . 'copilot-clear-overlay)
-         ("M-p" . 'copilot-previous-completion)
-         ("M-n" . 'copilot-next-completion)
-         ("<tab>" . 'copilot-accept-completion)
-         ("M-f" . 'copilot-accept-completion-by-word)
-         ("M-<return>" . 'copilot-accept-completion-by-line)))
 
 (use-package nix-mode
   :mode "\\.nix\\'")

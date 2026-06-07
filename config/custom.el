@@ -1,15 +1,22 @@
+;; -*- lexical-binding: t -*-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(agent-shell-opencode-default-model-id "llama-cpp/glm-4.7-flash")
+ '(agent-shell-opencode-default-session-mode-id "plan")
+ '(agent-shell-preferred-agent-config 'opencode)
+ '(agent-shell-show-usage-at-turn-end t)
  '(calendar-date-style 'european)
  '(calendar-week-start-day 1)
- '(copilot-idle-delay nil)
  '(electric-pair-mode t nil nil "Customized with use-package emacs")
  '(fill-column 80 nil nil "Customized with use-package emacs")
+ '(ghostel-module-directory "~/.config/emacs/ghostel-module")
  '(markdown-command "pandoc -F mermaid-filter")
+ '(message-signature nil nil nil "Customized with use-package mu4e")
  '(mode-line-compact 'long)
+ '(mu4e-compose-switch t nil nil "Customized with use-package mu4e")
  '(nov-variable-pitch nil)
  '(projectile-enable-caching t)
  '(vterm-max-scrollback 100000))

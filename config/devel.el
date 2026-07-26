@@ -103,6 +103,11 @@
 	       ("C-c n" . ghostel-project-next)
 	       ("C-c p" . ghostel-project-previous))))
 
+(use-package agent-shell
+  :init (unbind-key "a" ctl-x-map)
+  :bind (("C-x a a" . agent-shell)
+	 ("C-x a t" . agent-shell-new-temp-shell)))
+
 (use-package tramp
   :init
   (setq tramp-backup-directory-alist backup-directory-alist)
